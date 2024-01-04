@@ -13,7 +13,7 @@ async function inserir(req, res) {
       res.status(201).json({msg:'Inserido com sucesso!'})
     }
     catch(err) {
-      res.status(err.id).json({msg: err.message});
+      res.status(err.id|| 500).json({msg: err.message});
     }
 }
 
@@ -24,8 +24,7 @@ async function buscarPorId(req, res) {
       res.json(cli);
     }
     catch(err) {
-      //id-> 404 / msg -> msg de erro
-      res.status(err.id).json({msg: err.message});
+      res.status(err.id|| 500).json({msg: err.message});
     }
 }
 
@@ -36,7 +35,7 @@ async function deletar(req, res) {
       res.json(clienteDeletado);
     }
     catch(err) {
-      res.status(err.id).json({msg: err.message});
+      res.status(err.id|| 500).json({msg: err.message});
     }   
 }
 
@@ -49,7 +48,7 @@ async function atualizar (req, res) {
       res.json({msg:'usuario atualizado com sucesso'});
     }
     catch(err) {
-      res.status(err.id).json({msg: err.message});
+      res.status(err.id|| 500).json({msg: err.message});
     }
 }
 async function BuscarLikeName(req, res){
@@ -58,7 +57,7 @@ async function BuscarLikeName(req, res){
       cli = await clienteService.BuscarLikeName(nome);
       res.json(cli);
   } catch (err) {
-      res.status(err.id).json({msg: err.message});
+      res.status(err.id|| 500).json({msg: err.message});
   }
 }
 

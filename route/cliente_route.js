@@ -8,7 +8,7 @@ router.post('/', clienteController.inserir);
 
 router.get('/', clienteController.listar);
 router.get('/:id', clienteController.buscarPorId);
-router.get('/buscaNome', clienteController.pesquisarPorLikeNome);
+router.get('/buscaNome', clienteController.BuscarLikeName);
 
 router.put('/:id',clienteController.atualizar);
 

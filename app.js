@@ -1,8 +1,8 @@
 const express = require('express')
 
-const livroRouter = require('./route/livro_router');
-const clienteRouter = require('./route/cliente_router')
-const emprestimoRouter = require('./route/emprestimo_router')
+const livroRouter = require('./route/livros_route');
+const clienteRouter = require('./route/cliente_route')
+const emprestimoRouter = require('./route/emprestimo_route')
 const app = express()
 const port = 3000
 app.use(express.json());

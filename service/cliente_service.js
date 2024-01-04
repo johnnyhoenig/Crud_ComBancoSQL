@@ -5,16 +5,12 @@ async function listar() {
 }
 
 async function inserir(cliente) {
-    let user = await clienteRepository.BuscarLikeName(cliente.nome);
-    if (user) {
-        throw {id:400, message:"user ja existe"}
-    };
     if(cliente) {// cliente != undefined
         if (cliente.nome) {
             if (cliente.email) {
                 if (cliente.senha) {
-                    return await clienteRepository.inserir(cliente);
-                     
+                    await clienteRepository.inserir(cliente);
+                    throw {id:200, message:"usuario inserido"}
                 } else {
                     throw {id:400, message:"cliente sem senha"};
                 }
@@ -40,7 +36,7 @@ async function buscarPorId(id) {
 }
 
 async function atualizar(id,cliente) {
-    let user = await clienteRepository.BuscarLikeName(cliente.nome);
+    let user = cliente
     if (!user) {
         throw {id:400, message:"cliente nao encontrado"}
     };

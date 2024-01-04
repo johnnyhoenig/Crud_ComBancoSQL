@@ -10,7 +10,7 @@ router.post('/', livroController.inserir);
 
 router.get('/', livroController.listar);
 router.get('/:id', livroController.buscarPorId);
-router.get('/buscaNome', livroController.buscarNomelivro);
+router.get('/buscaNome', livroController.BuscarLikeName);
 
 router.put('/:id',livroController.atualizar);
 

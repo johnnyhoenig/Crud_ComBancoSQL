@@ -3,7 +3,7 @@ const {Client} = require('pg');
 const conexao = {
     host:"localhost",
     port: 5432,
-    database:"Crud_Api",
+    database:"Biblioteca",
     user: "postgres",
     password:"2996"
 }
@@ -21,7 +21,7 @@ async function buscarPorId(id){
     const client= new Client(conexao);
     await client.connect();
     const result = await client.query("SELECT * FROM Livros WHERE id = $1",[id]);
-    const livros = result.rows;
+    const livros = result.rows[0];
     await client.end();
     return livros; 
 }
@@ -29,7 +29,7 @@ async function buscarPorId(id){
 async function inserir(livro) {
     const client= new Client(conexao);
     await client.connect();
-    const result= await client.query('INSERT INTO clientes (nome,autor,editora,isbn,data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+    const result= await client.query('INSERT INTO Livros (nome,autor,editora,isbn,data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
     [livro.nome, livro.autor, livro.editora,livro.isbn,livro.data]);
     const livros = result.rows[0];
     await client.end();
@@ -39,11 +39,11 @@ async function inserir(livro) {
 async function atualizar(id, livro) {
     const client= new Client(conexao);
     await client.connect();
-    const result = await client.query('UPDATE clientes SET nome= $1 ,autor= $2 ,editora=$3 ,isbn=$4 ,data=$5 WHERE id=$6 RETURNING *',
+    const result = await client.query('UPDATE Livros SET nome= $1 ,autor= $2 ,editora=$3 ,isbn=$4 ,data=$5 WHERE id=$6 RETURNING *',
     [livro.nome, livro.autor, livro.editora,livro.isbn,livro.data,id]);
     const livros = result.rows[0];
     await client.end();
-    return livros; 
+    return; 
 }
 async function BuscarLikeName(livros){
     const client= new Client(conexao);
@@ -59,7 +59,7 @@ async function deletar(id) {
     const result= await client.query('DELETE FROM Livros WHERE id = $1 RETURNING *',[id]);
     const livro = result.rows[0];
     await client.end();
-    return livro; 
+    return ; 
 }
 
 module.exports = {

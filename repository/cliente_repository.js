@@ -3,7 +3,7 @@ const {Client} = require('pg');
 const conexao = {
     host:"localhost",
     port: 5432,
-    database:"Crud_Api",
+    database:"Biblioteca",
     user: "postgres",
     password:"2996"
 }
@@ -25,20 +25,20 @@ async function buscarPorId(id){
     await client.connect();
     const result = await client.query("SELECT * FROM Clientes WHERE id = $1",[id]);
     // cli e o retorno da busca da querry
-    const cli = result.rows;
+    const cli = result.rows[0];
     await client.end();
     return cli; 
 }
 
-async function inserir(Usuario) {
-    Usuario.matricula = geraMatricula();
+async function inserir(usuario) {
+    usuario.matricula = geraMatricula();
     const client= new Client(conexao);
     await client.connect();
-    const result= await client.query('INSERT INTO Clientes (nome, email, senha, matricula) VALUES ($1, $2, $3, $4) RETURNING *',
-    [Usuario.nome, Usuario.email, Usuario.senha,Usuario.matricula]);
-    const cli = result.rows;
+    const result= await client.query('INSERT INTO clientes (nome,email,senha,matricula) VALUES ($1, $2, $3, $4) RETURNING *',
+    [usuario.nome, usuario.email, usuario.senha,usuario.matricula]);
+    const usuarios = result.rows[0];
     await client.end();
-    return cli; 
+    return usuarios; 
 }
 
 async function atualizar(id, Usuario) {

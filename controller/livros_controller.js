@@ -9,11 +9,11 @@ async function listar(req, res) {
 async function inserir(req, res) {
     let livro = req.body;
     try {
-        await livrosService.inserir(livro);
+      await livrosService.inserir(livro);
       res.status(201).json({msg:'Inserido com sucesso!'})
     }
     catch(err) {
-      res.status(err.id).json({msg: err.message});
+      res.status(err.id|| 500).json({msg: err.message});
     }
 }
 
@@ -24,38 +24,38 @@ async function buscarPorId(req, res) {
       res.json(livro);
     }
     catch(err) {
-      res.status(err.id).json({msg: err.message});
+      res.status(err.id|| 500).json({msg: err.message});
     }
 }
 async function atualizar(req, res) {
     const id = +req.params.id;
     let livro = req.body;
     try {
-        await livrosService.atualizar(id,livro);
-        res.json({msg:"livro atualizado com sucesso"});
-    } catch (error) {
-      res.status(err.id).json({msg: err.message});
+      await livrosService.atualizar(id,livro);
+      res.json({msg:"livro atualizado com sucesso"});
+    } catch (err) {
+      res.status(err.id|| 500).json({msg: err.message});
     }
 }
 
 async function deletar(req, res) {
     const id = +req.params.id;
     try{ 
-      const livroDeletado = await livrosService.deletar(id);
-      res.json(livroDeletado);
+    const livroDeletado = await livrosService.deletar(id);
+    res.json(livroDeletado);
     }
     catch(err) {
-      res.status(err.id).json({msg: err.message});
+    res.status(err.id|| 500).json({msg: err.message});
     }   
 }
 async function BuscarLikeName(res, res){
     const livro = req.body;
     const livroNome = livro.nome;
     try {
-        livro = await livrosService.BuscarLikeName(livroNome);
-        res.json(livro);
+      livro = await livrosService.BuscarLikeName(livroNome);
+      res.json(livro);
     } catch (err) {
-        res.status(err.id).json({msg: err.message});
+      res.status(err.id|| 500).json({msg: err.message});
     }
 }
 module.exports={
